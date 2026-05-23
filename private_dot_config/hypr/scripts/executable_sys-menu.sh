@@ -17,6 +17,7 @@ STATE_DND=0
 STATE_BATTERY_SAVER=0
 STATE_BLUETOOTH=0
 STATE_IDLE=0
+STATE_LID_INHIBIT=0
 
 # Associative arrays for frecency data
 declare -A FREQ_COUNT
@@ -51,12 +52,16 @@ detect_states() {
     if pgrep -x hypridle >/dev/null; then
         STATE_IDLE=1
     fi
+
+    if "$SCRIPT_DIR/lid-inhibit.sh" status | grep -q "^active$"; then
+        STATE_LID_INHIBIT=1
+    fi
 }
 
 # --- Menu Construction ---
 
 build_menu_items() {
-    local notif_label bt_label battery_label idle_label
+    local notif_label bt_label battery_label idle_label lid_label
 
     if [ "$STATE_DND" -eq 1 ]; then
         notif_label="Turn notifications on"
@@ -82,8 +87,14 @@ build_menu_items() {
         idle_label="Turn idle-daemon on"
     fi
 
-    ITEM_KEYS=(power_mode notifications battery_saver bluetooth idle_daemon wallpaper screenshot waybar sysinfo)
-    ITEM_LABELS=("Power Mode" "$notif_label" "$battery_label" "$bt_label" "$idle_label" "Change Wallpaper" "Screenshot (Region)" "Refresh Waybar" "System Info")
+    if [ "$STATE_LID_INHIBIT" -eq 1 ]; then
+        lid_label="Turn lid-close sleep on"
+    else
+        lid_label="Turn lid-close sleep off"
+    fi
+
+    ITEM_KEYS=(power_mode notifications battery_saver bluetooth idle_daemon lid_sleep wallpaper screenshot waybar sysinfo)
+    ITEM_LABELS=("Power Mode" "$notif_label" "$battery_label" "$bt_label" "$idle_label" "$lid_label" "Change Wallpaper" "Screenshot (Region)" "Refresh Waybar" "System Info")
 }
 
 # --- Frecency ---
@@ -229,6 +240,9 @@ execute_action() {
         ;;
     idle_daemon)
         "$SCRIPT_DIR/idle.sh" toggle
+        ;;
+    lid_sleep)
+        "$SCRIPT_DIR/lid-inhibit.sh" toggle
         ;;
     wallpaper)
         waypaper
