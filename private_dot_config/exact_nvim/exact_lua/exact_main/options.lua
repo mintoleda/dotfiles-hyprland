@@ -16,3 +16,4 @@ vim.o.expandtab = true
 vim.o.ignorecase = true
 vim.o.smartcase = true
 vim.opt.textwidth = 100
+vim.o.conceallevel = 2

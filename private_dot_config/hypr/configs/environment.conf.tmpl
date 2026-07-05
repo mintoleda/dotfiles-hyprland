@@ -3,8 +3,8 @@
 # env = XCURSOR_SIZE,24
 # env = HYPRCURSOR_SIZE,24
 
-# gpu prio
-env = AQ_DRM_DEVICES,/dev/dri/card2:/dev/dri/card1
+# gpu prio (Intel iGPU primary, NVIDIA dGPU secondary)
+env = AQ_DRM_DEVICES,/dev/dri/card2:/dev/dri/card0
 
 # backend support
 env = XDG_SESSION_TYPE,wayland

@@ -4,7 +4,7 @@
 -- hl.env("HYPRCURSOR_SIZE", "24")
 
 -- GPU priority
-hl.env("AQ_DRM_DEVICES", "/dev/dri/card2:/dev/dri/card1")
+hl.env("AQ_DRM_DEVICES", "/dev/dri/card2:/dev/dri/card0")
 
 -- Backend support
 hl.env("XDG_SESSION_TYPE", "wayland")
