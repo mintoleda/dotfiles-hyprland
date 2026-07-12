@@ -70,8 +70,9 @@ start_inhibitor() {
         return 1
     fi
 
-    setsid systemd-inhibit --what="$WHAT" --who="$WHO" --why="$WHY" --mode=block sleep infinity >/dev/null 2>&1 &
+    systemd-inhibit --what="$WHAT" --who="$WHO" --why="$WHY" --mode=block sleep infinity >/dev/null 2>&1 &
     pid=$!
+    disown "$pid" 2>/dev/null || true
     printf '%s\n' "$pid" >"$PID_FILE"
 
     sleep 0.2

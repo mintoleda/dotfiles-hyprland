@@ -3,10 +3,28 @@
     "openrouter": {
       "baseUrl": "https://openrouter.ai/api/v1",
       "api": "openai-completions",
-      "apiKey": "OPENROUTER_API_KEY",
+      "apiKey": "$OPENROUTER_API_KEY",
       "models": [
         {
           "id": "xiaomi/mimo-v2-flash"
+        },
+        {
+          "id": "qwen/qwen3-coder:free"
+        },
+        {
+          "id": "deepseek/deepseek-v4-pro"
+        },
+        {
+          "id": "deepseek/deepseek-v4-flash:free"
+        },
+        {
+          "id": "deepseek/deepseek-v4-flash"
+        },
+        {
+          "id": "qwen/qwen3-coder-next"
+        },
+        {
+          "id": "openai/gpt-oss-120b:free"
         }
       ]
     }

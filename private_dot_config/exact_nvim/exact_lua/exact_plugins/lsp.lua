@@ -146,7 +146,27 @@ return {
       },
       html = { filetypes = { 'html', 'twig', 'hbs' } },
       cssls = {},
-      tailwindcss = {},
+      tailwindcss = {
+        -- Only attach inside a project that actually uses Tailwind; the default
+        -- root detection can fall back to $HOME and scan .cache/.cargo/etc,
+        -- flooding lsp.log and OOMing the server.
+        workspace_required = true,
+        root_dir = function(bufnr, on_dir)
+          local root = vim.fs.root(bufnr, {
+            'tailwind.config.js',
+            'tailwind.config.cjs',
+            'tailwind.config.mjs',
+            'tailwind.config.ts',
+            'postcss.config.js',
+            'postcss.config.cjs',
+            'postcss.config.mjs',
+            'postcss.config.ts',
+          })
+          if root then
+            on_dir(root)
+          end
+        end,
+      },
       dockerls = {},
       sqlls = {},
       terraformls = {},

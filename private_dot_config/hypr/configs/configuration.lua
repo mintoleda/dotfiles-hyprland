@@ -1,74 +1,74 @@
 -- Configuration/Styling for Hyprland
 
 local function border_color(value)
-  local first, second, angle = value:match("^(rgba%([^)]+%))%s+(rgba%([^)]+%))%s+(%d+)deg$")
-  if first and second and angle then
-    return { colors = { first, second }, angle = tonumber(angle) }
-  end
-  return value
+	local first, second, angle = value:match("^(rgba%([^)]+%))%s+(rgba%([^)]+%))%s+(%d+)deg$")
+	if first and second and angle then
+		return { colors = { first, second }, angle = tonumber(angle) }
+	end
+	return value
 end
 
 hl.config({
-  general = {
-    border_size = 0,
-    col = {
-      active_border = border_color(activeBorder),
-      inactive_border = border_color(inactiveBorder),
-    },
-    gaps_in = 1,
-    gaps_out = 0,
-    resize_on_border = true,
-  },
+	general = {
+		border_size = 0,
+		col = {
+			active_border = border_color(activeBorder),
+			inactive_border = border_color(inactiveBorder),
+		},
+		gaps_in = 1,
+		gaps_out = 0,
+		resize_on_border = true,
+	},
 
-  -- xwayland = {
-  --   force_zero_scaling = true,
-  -- },
+	xwayland = {
+		force_zero_scaling = true,
+	},
 
-  cursor = {
-    no_hardware_cursors = true,
-  },
+	cursor = {
+		no_hardware_cursors = true,
+	},
 
-  decoration = {
-    rounding = 10,
-    active_opacity = 0.9,
-    inactive_opacity = 0.8,
-    shadow = {
-      range = 32,
-      render_power = 2,
-      color = "rgba(1a1a1aee)",
-    },
-    blur = {
-      passes = 5,
-      vibrancy = 0.5,
-    },
-  },
+	decoration = {
+		rounding = 10,
+		active_opacity = 0.9,
+		inactive_opacity = 0.8,
+		shadow = {
+			range = 32,
+			render_power = 2,
+			color = "rgba(1a1a1aee)",
+		},
+		blur = {
+			passes = 5,
+			vibrancy = 0.5,
+		},
+	},
 
-  dwindle = {
-    preserve_split = true,
-  },
+	dwindle = {
+		preserve_split = true,
+	},
 
-  master = {
-    new_status = "master",
-  },
+	master = {
+		new_status = "master",
+	},
 
-  misc = {
-    force_default_wallpaper = 1,
-    disable_hyprland_logo = true,
-    disable_autoreload = true,
-  },
+	misc = {
+		force_default_wallpaper = 1,
+		disable_hyprland_logo = true,
+		disable_autoreload = true,
+	},
 
-  input = {
-    touchpad = {
-      natural_scroll = true,
-      scroll_factor = 0.4,
-      middle_button_emulation = true,
-    },
-  },
+	input = {
+		touchpad = {
+			natural_scroll = true,
+			scroll_factor = 0.4,
+			middle_button_emulation = true,
+		},
+	},
 
-  ecosystem = {
-    no_update_news = true,
-    no_donation_nag = true,
-  },
+	ecosystem = {
+		no_update_news = true,
+		no_donation_nag = true,
+	},
 })
 
 hl.gesture({ fingers = 3, direction = "horizontal", action = "workspace" })

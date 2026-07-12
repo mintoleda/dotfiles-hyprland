@@ -35,6 +35,7 @@ setopt sharehistory       # share history across all sessions
 setopt correct            # command spelling correction
 
 
+alias rbt='cd ~/repos/talos && go build ./cmd/talos'
 alias waybar-reload='pkill waybar & hyprctl dispatch exec waybar'
 alias btui='bluetui'
 alias nv='prime-run'
@@ -46,8 +47,11 @@ alias c='clear && '
 alias ls='eza'
 alias la='ls -la'
 alias bd='bun run dev'
+alias g='lazygit'
 
 
-eval "$(zoxide init zsh)"
 eval "$(fnm env --use-on-cd)"
 eval "$(oh-my-posh init zsh --config $HOME/.config/ohmyposh/config.toml)"
+export _ZO_DOCTOR=0
+eval "$(zoxide init zsh)"
+. "/home/adetola/.deno/env"

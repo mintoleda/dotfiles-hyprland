@@ -5,13 +5,21 @@ return {
     local jdtls = require 'jdtls'
 
     local mason_pkg = vim.fn.stdpath 'data' .. '/mason/packages/jdtls'
-    local launcher_jar = vim.fn.glob(mason_pkg .. '/plugins/org.eclipse.equinox.launcher_*.jar')
     local config_dir = mason_pkg .. '/config_linux'
 
     local function start_jdtls()
       -- Recompute per-buffer so each project gets its own workspace
       local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')
       local workspace_dir = vim.fn.stdpath 'data' .. '/jdtls-workspace/' .. project_name
+
+      -- Resolve the launcher jar on every (re)start: a Mason upgrade replaces
+      -- the versioned jar, and a path cached at plugin load would 404 → java
+      -- exits immediately ("client jdtls quit with exit code 13").
+      local launcher_jar = vim.fn.glob(mason_pkg .. '/plugins/org.eclipse.equinox.launcher_*.jar')
+      if launcher_jar == '' then
+        vim.notify('jdtls: no equinox launcher jar found under ' .. mason_pkg, vim.log.levels.ERROR)
+        return
+      end
 
       jdtls.start_or_attach {
         cmd = {
